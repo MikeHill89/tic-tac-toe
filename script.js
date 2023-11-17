@@ -1,11 +1,19 @@
 //declare dom elements
 const boardGridItems = document.querySelectorAll(".grid-item");
-const statusDisplay = document.querySelector(".status-display");
-statusDisplay.innerText = "Game not started";
-const gameMenu = document.querySelector(".game-menu");
-
+const turnDisplay = document.querySelector(".turn-display");
+const gameBoardGrid = document.querySelector(".game-board");
+const gameStartMenu = document.querySelector(".startpanel");
+const gameStartBtn = document.getElementById("startgame");
+const rematchBtn = document.getElementById("rematchgame");
+const player1InputEl = document.getElementById("player1");
+const player2InputEl = document.getElementById("player2");
+const showWinner = document.querySelector(".announce-winner");
+const resetRematchMenu = document.querySelector(".rematch-restart");
+let player1;
+let player2;
+let currentPlayer;
 //gamecode
-const gameBoard = [
+let gameBoard = [
 	[0,1,2],
 	[3,4,5],
 	[6,7,8]
@@ -13,14 +21,53 @@ const gameBoard = [
 
 let moveCounter = 0;
 
+function startGame(){
+    //create players from input
+    const player1Name = player1InputEl.value; 
+    const player2Name = player2InputEl.value; 
+    player1 = GameCreatePlayer(player1Name,"X");
+    player2= GameCreatePlayer(player2Name,"O");
+    //hide and show elements
+    turnDisplay.classList.remove("hidden");
+    gameBoardGrid.classList.remove("hidden");
+    gameStartBtn.classList.add("hidden")
+    gameStartMenu.classList.add("hidden");
+    currentPlayer = player1;
+    turnDisplay.innerText = `It's ${currentPlayer.name} turn!`;
+}
+function clearGameBoard(){
+  boardGridItems.forEach(item => {
+    item.innerText = "";
+    gameBoard = [
+	[0,1,2],
+	[3,4,5],
+	[6,7,8]
+];;
+ });    
+}
+
+function startRematch(){
+    turnDisplay.classList.remove("hidden");
+    gameBoardGrid.classList.remove("hidden");
+    gameStartBtn.classList.add("hidden")
+    gameStartMenu.classList.add("hidden");
+    resetRematchMenu.classList.add("hidden");
+    showWinner.innerText = "";
+    clearGameBoard();
+}
+
+gameStartBtn.addEventListener("click",startGame);
+rematchBtn.addEventListener("click",startRematch);
+
 function checkForDraw(){
 	if (moveCounter === 9){
 		return console.log("it's a draw");
 	}
 }
-
 function announceWinner(winner){
-	statusDisplay.innerText = winner + " wins!";
+    resetRematchMenu.classList.remove("hidden");
+    showWinner.innerText = `${winner} has won the game!`;
+    turnDisplay.classList.add("hidden");
 }
 
 function checkForWin() {
@@ -78,10 +125,6 @@ function GameCreatePlayer(name, symbol){
 		symbol: symbol,
 	}
 }
-//setup players
-const player1 = GameCreatePlayer("Maikel","X");
-const player2 = GameCreatePlayer("Jim","O");
-let currentPlayer = player1;
 
 //not used at the moment.
 function switchPlayers(){
@@ -90,7 +133,7 @@ function switchPlayers(){
 	} else{
 		currentPlayer = player1
 	};
-	statusDisplay.innerText = currentPlayer.name + "'s turn.";
+    turnDisplay.innerText = `It's ${currentPlayer.name} turn!`;
 }
 
 function placePlayerSymbol(item){;
@@ -115,4 +158,4 @@ boardGridItems.forEach( item => {
 	})
 });
 
-
+    
