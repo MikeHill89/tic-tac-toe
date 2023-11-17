@@ -46,6 +46,19 @@ function clearGameBoard(){
 ];;
  });    
 }
+
+function freezeGameBoard(){
+  boardGridItems.forEach(item => {
+    item.classList.add("non-clickable");
+ });    
+}
+
+function defreezeGameBoard(){
+  boardGridItems.forEach(item => {
+    item.classList.remove("non-clickable");
+ });    
+}
+
 function resetGame(){
     clearGameBoard();
     turnDisplay.classList.add("hidden");
@@ -57,6 +70,7 @@ function resetGame(){
     player1InputEl.value ="";
     player2InputEl.value = "";
     moveCounter = 0;
+    defreezeGameBoard();
 
 }
 function startRematch(){
@@ -68,6 +82,8 @@ function startRematch(){
     showWinner.innerText = "";
     clearGameBoard();
     moveCounter = 0;
+    switchPlayers();
+    defreezeGameBoard();
 }
 
 gameStartBtn.addEventListener("click",startGame);
@@ -79,6 +95,7 @@ function checkForDraw(){
         resetRematchMenu.classList.remove("hidden");
         turnDisplay.classList.add("hidden");
         showWinner.innerText = "It's a draw!";
+        freezeGameBoard();
 		return console.log("it's a draw");
 	}
 }
@@ -86,6 +103,7 @@ function announceWinner(winner){
     resetRematchMenu.classList.remove("hidden");
     showWinner.innerText = `${winner} has won the game!`;
     turnDisplay.classList.add("hidden");
+    freezeGameBoard();
 }
 
 function checkForWin() {

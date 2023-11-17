@@ -25,6 +25,9 @@ body {
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 }
+.non-clickable{
+    pointer-events:none;
+}
 .grid-item {
 	display: flex;
     width: 50px;
