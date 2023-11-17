@@ -5,6 +5,7 @@ const gameBoardGrid = document.querySelector(".game-board");
 const gameStartMenu = document.querySelector(".startpanel");
 const gameStartBtn = document.getElementById("startgame");
 const rematchBtn = document.getElementById("rematchgame");
+const resetBtn = document.getElementById("resetgame");
 const player1InputEl = document.getElementById("player1");
 const player2InputEl = document.getElementById("player2");
 const showWinner = document.querySelector(".announce-winner");
@@ -45,7 +46,18 @@ function clearGameBoard(){
 ];;
  });    
 }
+function resetGame(){
+    clearGameBoard();
+    turnDisplay.classList.add("hidden");
+    gameBoardGrid.classList.add("hidden");
+    gameStartBtn.classList.remove("hidden")
+    gameStartMenu.classList.remove("hidden");
+    resetRematchMenu.classList.add("hidden");
+    showWinner.innerText = "";
+    player1InputEl.value ="";
+    player2InputEl.value = "";
 
+}
 function startRematch(){
     turnDisplay.classList.remove("hidden");
     gameBoardGrid.classList.remove("hidden");
@@ -58,6 +70,7 @@ function startRematch(){
 
 gameStartBtn.addEventListener("click",startGame);
 rematchBtn.addEventListener("click",startRematch);
+resetBtn.addEventListener("click",resetGame);
 
 function checkForDraw(){
 	if (moveCounter === 9){
