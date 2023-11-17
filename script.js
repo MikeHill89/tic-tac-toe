@@ -56,6 +56,7 @@ function resetGame(){
     showWinner.innerText = "";
     player1InputEl.value ="";
     player2InputEl.value = "";
+    moveCounter = 0;
 
 }
 function startRematch(){
@@ -66,6 +67,7 @@ function startRematch(){
     resetRematchMenu.classList.add("hidden");
     showWinner.innerText = "";
     clearGameBoard();
+    moveCounter = 0;
 }
 
 gameStartBtn.addEventListener("click",startGame);
@@ -74,6 +76,9 @@ resetBtn.addEventListener("click",resetGame);
 
 function checkForDraw(){
 	if (moveCounter === 9){
+        resetRematchMenu.classList.remove("hidden");
+        turnDisplay.classList.add("hidden");
+        showWinner.innerText = "It's a draw!";
 		return console.log("it's a draw");
 	}
 }
