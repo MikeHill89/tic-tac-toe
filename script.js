@@ -1,4 +1,4 @@
-const Game = (function() {
+const game = (function() {
     // declare dom elements
     const boardGridItems = document.querySelectorAll(".grid-item");
     const turnDisplay = document.querySelector(".turn-display");
@@ -20,6 +20,7 @@ const Game = (function() {
         [3, 4, 5],
         [6, 7, 8]
     ];
+
 
     let moveCounter = 0;
 
@@ -85,7 +86,7 @@ const Game = (function() {
         showWinner.innerText = "";
         clearGameBoard();
         moveCounter = 0;
-        currentPlayer = player1;
+        turnDisplay.innerText = `It's ${currentPlayer.name} turn!`;
         defreezeGameBoard();
     }
 
